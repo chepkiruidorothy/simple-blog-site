@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+
+<div class="container mt-5 border d-flex justify-content-center">
+  <h2>Hello {{ user }}</h2>
+  <br>
+  <form  action="/new_post/" enctype="multipart/form-data"  method="post"> {% csrf_token %}
+  <div class="container mt-4">
+  {{ form.as_p }}
+  <!-- <a href="{% url 'home'%}" class="btn btn-primary">Add Blog</a> -->
+   <button type="submit" class="btn btn-success">Post</button>
+  </div>
+  </form>
+
+
+  <br>
+
+
+
+</div>
+
+
+
+
+{% endblock %}

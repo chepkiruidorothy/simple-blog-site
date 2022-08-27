@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<div class="container mt-5 mb-3">
+
+
+
+{% for post in posts %}
+          <div class="row ">
+        <div class="col-6 mb-4">
+          <div class="card-header text-center">
+            by {{post.author}}
+          </div>
+            <div class="card text-center shadow" >
+
+
+
+                <img src="/media/{{post.image}}"  class="card-img-top" alt="..." height="300px" >
+
+                <div class="card-body">
+
+
+                  <h5 class="card-title">{{post.title}} </h5>
+                  <p class="card-text">{{post.body| truncatechars:200}}</p>
+                  <a href="{{post.slug}}" class="btn btn-primary">Read More {% if user.is_superuser %}<a href="delete_blog_post/{{post.slug}}/" class="btn btn-danger mx-4">Delete Blog</a>{% endif %}</a>
+                </div>
+                <div class="card-footer">
+  <small class="text-muted">{{post.created_on}}</small>
+</div>
+              </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

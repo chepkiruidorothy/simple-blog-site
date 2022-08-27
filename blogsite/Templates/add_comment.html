@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %} {% block content %}
+
+
+<div class="container  mt-3 ">
+  <div class="row  mt-2">
+    <div class="col-md-8 card mb-3 border  mt-4  d-flex justify-content-center">
+      <div class="card-body">
+        <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
+        <img src="/media/{{post.image}}" class="card-img-top" alt="..." height="250px">
+        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+        <p class="card-text ">{{ post.body | safe }}</p>
+      </div>
+    </div>
+
+
+    <div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+        <!-- comments -->
+        {% if comments%}
+        <h2>{{ comments.count }} comments</h2>
+
+        {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+          <p class="font-weight-bold" style="font-weight:bold;">
+            {{ comment.name }}
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+          </p>
+          {{ comment.comment | linebreaks }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h5>Leave a comment</h5>
+        <form method="post" style="margin-top: 1.3em;">
+          {% csrf_token %}
+          {{ form.as_p }}
+
+          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
